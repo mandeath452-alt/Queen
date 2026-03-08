@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeenatt • Women's Day</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+color:white;
+overflow-x:hidden;
+}
+
+/* sections */
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:60px 25px;
+transition:background 1s;
+}
+
+/* backgrounds */
+
+#intro{
+background:linear-gradient(135deg,#ff4da6,#6a11cb);
+}
+
+#hero{
+background:linear-gradient(135deg,#141e30,#243b55);
+}
+
+#praise{
+background:linear-gradient(135deg,#42275a,#734b6d);
+}
+
+#story{
+background:linear-gradient(135deg,#134e5e,#71b280);
+}
+
+#game{
+background:linear-gradient(135deg,#000428,#004e92);
+}
+
+/* headings */
+
+h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+h2{
+font-size:38px;
+margin-bottom:20px;
+}
+
+p{
+font-size:18px;
+max-width:700px;
+line-height:1.6;
+}
+
+/* buttons */
+
+button{
+padding:15px 35px;
+border:none;
+border-radius:40px;
+background:linear-gradient(135deg,#ff4da6,#ff8ad4);
+color:white;
+font-size:16px;
+cursor:pointer;
+margin-top:30px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 10px 30px rgba(255,100,180,.6);
+}
+
+/* carousel */
+
+.carousel{
+position:relative;
+max-width:800px;
+margin-top:40px;
+}
+
+.slide{
+display:none;
+font-size:22px;
+}
+
+.slide.active{
+display:block;
+}
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:32px;
+cursor:pointer;
+padding:12px 18px;
+background:rgba(255,255,255,.2);
+border-radius:50%;
+}
+
+.arrow:hover{
+background:rgba(255,255,255,.4);
+}
+
+.left{
+left:-60px;
+}
+
+.right{
+right:-60px;
+}
+
+/* hearts */
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.heart{
+position:absolute;
+color:#ff6ec7;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0}
+50%{opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+
+.result{
+margin-top:30px;
+font-size:24px;
+color:#ff9ed6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<audio id="music" loop>
+<source src="song1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- intro -->
+
+<section id="intro">
+
+<h1>For Zeenatt</h1>
+
+<p>
+Ek chhoti si digital duniya jo sirf tumhare liye banayi gayi hai.
+</p>
+
+<p>
+A small digital world made only for you.
+</p>
+
+<button onclick="openSite()">Open Your Surprise</button>
+
+</section>
+
+<!-- hero -->
+
+<section id="hero">
+
+<h1>Happy Women's Day</h1>
+
+<p>
+Zeenatt... duniya aaj Women's Day celebrate kar rahi hai.
+But honestly kuch log sirf ek din celebrate karne ke liye nahi bane hote.
+</p>
+
+<button onclick="scrollNext('praise')">Continue ↓</button>
+
+</section>
+
+<!-- praise -->
+
+<section id="praise">
+
+<h2>Things That Make You Special</h2>
+
+<div class="carousel">
+
+<div class="arrow left" onclick="prevSlide()">❮</div>
+<div class="arrow right" onclick="nextSlide()">❯</div>
+
+<div class="slide active">
+
+<p>
+"Tumhari strength alag level ki hai."
+Kabhi kabhi tum quietly woh cheeze handle karti ho
+jo log loudly bhi nahi kar paate.
+</p>
+
+</div>
+
+<div class="slide">
+
+<p>
+"Your heart is rare."
+Tumhari kindness ka impact strange hai —
+it makes people feel safe.
+</p>
+
+</div>
+
+<div class="slide">
+
+<p>
+"Your smile has power."
+Kabhi kabhi ek smile kisi ka pura din reset kar deta hai.
+</p>
+
+</div>
+
+<div class="slide">
+
+<p>
+"You are different."
+Confidence aur softness ek saath carry karna rare hota hai.
+</p>
+
+</div>
+
+</div>
+
+<button onclick="scrollNext('story')">Next ↓</button>
+
+</section>
+
+<!-- story -->
+
+<section id="story">
+
+<h2>A Small Truth</h2>
+
+<p>
+Kabhi kabhi life normal lagti hai.
+Phir ek insaan milta hai aur duniya thodi interesting ho jati hai.
+</p>
+
+<p>
+Sometimes one person quietly makes life more meaningful.
+</p>
+
+<button onclick="scrollNext('game')">Continue ↓</button>
+
+</section>
+
+<!-- game -->
+
+<section id="game">
+
+<h2>Mini Game</h2>
+
+<p>Tap to see what the universe thinks about Zeenatt.</p>
+
+<button onclick="playGame()">Reveal</button>
+
+<div class="result" id="result"></div>
+
+</section>
+
+<script>
+
+/* open website */
+
+function openSite(){
+document.getElementById("music").play();
+document.getElementById("hero").scrollIntoView({behavior:'smooth'});
+startHearts();
+}
+
+/* scroll */
+
+function scrollNext(id){
+document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+/* carousel */
+
+const slides=document.querySelectorAll(".slide");
+let index=0;
+
+function showSlide(i){
+slides.forEach(s=>s.classList.remove("active"));
+slides[i].classList.add("active");
+}
+
+function nextSlide(){
+index++;
+if(index>=slides.length) index=0;
+showSlide(index);
+}
+
+function prevSlide(){
+index--;
+if(index<0) index=slides.length-1;
+showSlide(index);
+}
+
+/* game */
+
+function playGame(){
+
+const messages=[
+"Queen Energy Detected 👑",
+"Legendary Woman Confirmed ⭐",
+"Too Much Beauty Detected 💫",
+"World upgraded because Zeenatt exists ❤️",
+"100% Amazing Human"
+];
+
+const random=messages[Math.floor(Math.random()*messages.length)];
+
+document.getElementById("result").innerText=random;
+
+}
+
+/* hearts animation */
+
+function startHearts(){
+
+setInterval(()=>{
+
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+
+document.getElementById("hearts").appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+},300);
+
+}
+
+</script>
+
+</body>
+</html>
